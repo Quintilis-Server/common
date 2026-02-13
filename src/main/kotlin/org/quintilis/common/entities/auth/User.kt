@@ -11,6 +11,8 @@ import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
+import lombok.AllArgsConstructor
+import lombok.NoArgsConstructor
 import org.hibernate.annotations.ColumnDefault
 import org.quintilis.common.entities.minecraft.Player
 import java.time.Instant
@@ -18,6 +20,8 @@ import java.util.UUID
 
 @Entity
 @Table(name = "users", schema = "auth")
+@NoArgsConstructor
+@AllArgsConstructor
 open class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

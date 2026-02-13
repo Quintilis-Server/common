@@ -15,6 +15,7 @@ import org.hibernate.annotations.ColumnDefault
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 import org.quintilis.common.entities.minecraft.Chunk
+import org.quintilis.common.entities.minecraft.economy.transaction.Transaction
 
 @Entity
 @Table(name = "clan_chunk", schema = "public")
@@ -39,5 +40,5 @@ open class ClanChunk {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "transaction_id", nullable = false)
-    open var transaction: org.quintilis.common.entities.minecraft.factions.clan.Transaction? = null
+    open var transaction: Transaction? = null
 }

@@ -19,7 +19,7 @@ data class ApiResponse<T>(
 
     companion object{
         fun <T>error(error: String, errorCode: ErrorCode): ApiResponse<T> {
-            return ApiResponse<T>(message = error, errorCode = errorCode)
+            return ApiResponse(message = error, errorCode = errorCode)
         }
 
         fun <T> success(data: T, message: String? = null): ApiResponse<T>{
