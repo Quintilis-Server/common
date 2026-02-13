@@ -64,4 +64,7 @@ open class User {
     @JoinColumn(name = "mine_id")
     open var mine: Player? = null
 
+    @Size(max = 255)
+    @Column(name = "google_id")
+    open var googleId: String? = null
 }
