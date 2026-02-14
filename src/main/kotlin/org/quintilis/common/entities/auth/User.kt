@@ -14,6 +14,8 @@ import jakarta.validation.constraints.Size
 import lombok.AllArgsConstructor
 import lombok.NoArgsConstructor
 import org.hibernate.annotations.ColumnDefault
+import org.quintilis.common.dto.UserDTO
+import org.quintilis.common.entities.BaseEntity
 import org.quintilis.common.entities.minecraft.Player
 import java.time.Instant
 import java.util.UUID
@@ -22,7 +24,7 @@ import java.util.UUID
 @Table(name = "users", schema = "auth")
 @NoArgsConstructor
 @AllArgsConstructor
-open class User {
+open class User : BaseEntity<UserDTO> {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
@@ -71,4 +73,16 @@ open class User {
     @Size(max = 255)
     @Column(name = "google_id")
     open var googleId: String? = null
+
+    override fun toDTO(): UserDTO {
+        return UserDTO(
+            id = this.id,
+            username = this.username ?: "",
+            email = this.email ?: "",
+            role = this.role ?: "USER",
+            avatarPath = this.avatarPath,
+            isVerified = this.isVerified,
+            createdAt = this.createdAt
+        )
+    }
 }
