@@ -57,12 +57,12 @@ open class User {
     @NotNull
     @ColumnDefault("false")
     @Column(name = "is_verified", nullable = false)
-    open var isVerified: Boolean? = null
+    open var isVerified: Boolean = false
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at", nullable = false)
-    open var createdAt: Instant? = null
+    open var createdAt: Instant? = Instant.now()
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mine_id")
