@@ -1,7 +1,3 @@
-package org.quintilis.common.exception;
+package org.quintilis.common.exception
 
-public class AlreadyExistsException extends BaseError {
-    public AlreadyExistsException(String type) {
-        super(type+ " already exists ", ErrorCode.EXISTS);
-    }
-}
+class AlreadyExistsException(type: String) : BaseError("$type already exists", ErrorCode.EXISTS)

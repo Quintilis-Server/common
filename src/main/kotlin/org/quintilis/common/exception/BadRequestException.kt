@@ -1,13 +1,6 @@
-package org.quintilis.common.exception;
+package org.quintilis.common.exception
 
-import lombok.Getter;
-
-@Getter
-public class BadRequestException extends BaseError {
-    private final String userError;
-
-    public BadRequestException(String message, String userError) {
-        super(message, ErrorCode.BAD_REQUEST);
-        this.userError = userError;
-    }
-}
+class BadRequestException(
+    message: String,
+    val userError: String
+) : BaseError(message, ErrorCode.BAD_REQUEST)

@@ -1,7 +1,3 @@
-package org.quintilis.common.exception;
+package org.quintilis.common.exception
 
-public class InvalidReCaptchaException extends BaseError {
-    public InvalidReCaptchaException(String message) {
-        super(message,ErrorCode.INVALID_CAPTCHA);
-    }
-}
+class InvalidReCaptchaException(message: String) : BaseError(message, ErrorCode.INVALID_CAPTCHA)

@@ -1,13 +1,6 @@
 package org.quintilis.common
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.persistence.autoconfigure.EntityScan
-import org.springframework.boot.runApplication
-import org.springframework.context.annotation.ComponentScan
-
-@SpringBootApplication
-class CommonApplication
-
-fun main(args: Array<String>) {
-    runApplication<CommonApplication>(*args)
-}
+// Esta classe foi removida pois o módulo 'common' é uma biblioteca
+// e não deve ser uma aplicação executável.
+// A presença de @SpringBootApplication aqui causava erros de proxy CGLIB
+// nos módulos que dependiam do 'common'.
