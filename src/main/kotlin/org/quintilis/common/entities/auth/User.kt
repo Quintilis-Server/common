@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor
 import lombok.NoArgsConstructor
 import org.hibernate.annotations.ColumnDefault
 import org.quintilis.common.dto.UserDTO
+import org.quintilis.common.dto.UserSummaryDTO
 import org.quintilis.common.entities.BaseEntity
 import org.quintilis.common.entities.minecraft.Player
 import java.time.Instant
@@ -83,6 +84,16 @@ open class User : BaseEntity<UserDTO> {
             avatarPath = this.avatarPath,
             isVerified = this.isVerified,
             createdAt = this.createdAt
+        )
+    }
+
+    fun toSummaryDTO(): UserSummaryDTO {
+        return UserSummaryDTO(
+            id = this.id,
+            username = this.username!!,
+            role = this.role ?: "USER",
+            avatarPath = this.avatarPath,
+            isVerified = this.isVerified
         )
     }
 }
