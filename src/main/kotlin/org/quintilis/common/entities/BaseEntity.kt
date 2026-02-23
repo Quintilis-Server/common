@@ -1,5 +1,7 @@
 package org.quintilis.common.entities
 
-interface BaseEntity<D> {
+import java.io.Serializable
+
+interface BaseEntity<D> : Serializable {
     fun toDTO(): D
 }

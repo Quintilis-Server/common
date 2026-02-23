@@ -1,11 +1,15 @@
 package org.quintilis.common.dto
 
 import java.util.UUID
+import lombok.AllArgsConstructor
+import lombok.NoArgsConstructor
 
+@NoArgsConstructor
+@AllArgsConstructor
 data class UserSummaryDTO(
-    val id: UUID?,
-    val username: String,
-    val role: String,
-    val avatarPath: String? = null,
-    val isVerified: Boolean = false,
+        var id: UUID?,
+        var username: String,
+        var role: String,
+        var avatarPath: String? = null,
+        var isVerified: Boolean = false,
 )
