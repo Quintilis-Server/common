@@ -49,7 +49,7 @@ open class Role : BaseEntity<RoleDTO> {
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_at", nullable = false)
-    open var createdAt: Instant? = null
+    open var createdAt: Instant = Instant.now()
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

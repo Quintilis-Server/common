@@ -75,9 +75,17 @@ open class User : BaseEntity<UserDTO> {
         return roles.flatMap { it.permissions }.mapNotNull { it.name }.toSet()
     }
 
+    fun getAllPermissionsEntity(): Set<Permission> {
+        return roles.flatMap { it.permissions }.toSet()
+    }
+
     /** Checks if the user has a specific permission. */
     fun hasPermission(permissionName: String): Boolean {
         return getAllPermissions().contains(permissionName)
+    }
+
+    fun hasPermission(permissions: Set<Permission>): Boolean {
+        return getAllPermissions().containsAll(permissions.mapNotNull { it.name })
     }
 
     /** Returns the role with the highest priority. */

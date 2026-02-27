@@ -26,7 +26,7 @@ open class RedisCacheConfig {
                 }
 
         return RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofMinutes(60)) // Default TTL 60 minutos
+//                .entryTtl(Duration.ofMinutes(60)) // Default TTL 60 minutos
                 .disableCachingNullValues()
                 .serializeKeysWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(
