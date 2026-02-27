@@ -4,6 +4,7 @@ import java.util.UUID
 import org.quintilis.common.entities.auth.User
 import org.quintilis.common.exception.UnauthorizedException
 import org.quintilis.common.repositories.UserRepository
+import org.quintilis.common.service.UserService
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.support.WebDataBinderFactory
@@ -12,7 +13,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 
 @Component
-class CurrentUserArgumentResolver(private val userRepository: UserRepository) : HandlerMethodArgumentResolver {
+class CurrentUserArgumentResolver(private val userService: UserService) : HandlerMethodArgumentResolver {
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         return parameter.getParameterAnnotation(CurrentUser::class.java) != null &&
@@ -32,9 +33,8 @@ class CurrentUserArgumentResolver(private val userRepository: UserRepository) : 
         }
 
         val userId = UUID.fromString(userIdHeader)
-        val user = userRepository.findById(userId).orElseThrow {
-            UnauthorizedException("User not found")
-        }
+        val user = userService.findById(userId)
+            ?: throw UnauthorizedException("User not found")
 
         val annotation = parameter.getParameterAnnotation(CurrentUser::class.java)
 
