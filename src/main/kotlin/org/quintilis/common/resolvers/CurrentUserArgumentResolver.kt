@@ -29,15 +29,13 @@ class CurrentUserArgumentResolver(private val userService: UserService) : Handle
         val userIdHeader = webRequest.getHeader("X-User-Id")
 
         if (userIdHeader.isNullOrBlank()) {
-            return null
+            throw UnauthorizedException("Missing X-User-Id header. User is not authenticated.")
         }
 
         val userId = UUID.fromString(userIdHeader)
-        val user = userService.findById(userId)
-            ?: throw UnauthorizedException("User not found")
+        val user = userService.findById(userId).orElseThrow { UnauthorizedException("User with id $userId not found.") }
 
         val annotation = parameter.getParameterAnnotation(CurrentUser::class.java)
-
         if(annotation != null && annotation.requiredPermission.isNotEmpty()){
             if(!user.hasPermission(annotation.requiredPermission)) {
                 throw UnauthorizedException("User does not have permission to access this resource")

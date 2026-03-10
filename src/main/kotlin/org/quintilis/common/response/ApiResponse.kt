@@ -12,7 +12,7 @@ data class ApiResponse<T>(
     val success: Boolean,
     val data: T? = null,
     val message: String? = null,
-    val timestamp: Instant = Instant.now(),
+//    val timestamp: Instant = Instant.now(),
     val errorCode: ErrorCode? = null
 ) : Serializable {
     constructor(message: String, errorCode: ErrorCode): this(success = false, message = message, errorCode = errorCode)

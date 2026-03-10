@@ -10,15 +10,11 @@ import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 import org.quintilis.common.dto.auth.PermissionDTO
 import org.quintilis.common.entities.BaseEntity
+import org.quintilis.common.entities.IntEntity
 
 @Entity
 @Table(name = "permissions", schema = "auth")
-open class Permission : BaseEntity<PermissionDTO> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    open var id: Int? = null
-
+open class Permission : IntEntity<PermissionDTO>() {
     @Size(max = 80)
     @NotNull
     @Column(name = "name", nullable = false, length = 80)

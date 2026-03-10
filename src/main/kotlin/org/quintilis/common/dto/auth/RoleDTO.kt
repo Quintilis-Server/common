@@ -6,13 +6,13 @@ import org.quintilis.common.entities.auth.Role
 
 data class RoleDTO(
         val id: Int,
-        val name: String,
-        val displayName: String,
-        val color: String,
-        val icon: String,
-        val priority: Int,
-        val createdAt: Instant,
-        val permissions: List<String> = emptyList()
+        val name: String = "",
+        val displayName: String = "",
+        val color: String = "",
+        val icon: String? = null,
+        val priority: Int = 0,
+        val createdAt: Instant? = null,
+        val permissions: Set<PermissionDTO> = emptySet()
 ) : BaseDTO<Role> {
     override fun toEntity(): Role {
         return Role().apply {
@@ -23,6 +23,7 @@ data class RoleDTO(
             icon = this@RoleDTO.icon
             priority = this@RoleDTO.priority
             createdAt = this@RoleDTO.createdAt
+            permissions = this@RoleDTO.permissions.map { it.toEntity() }.toMutableSet()
         }
     }
 }

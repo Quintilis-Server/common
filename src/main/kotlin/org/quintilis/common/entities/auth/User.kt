@@ -18,21 +18,18 @@ import java.util.UUID
 import lombok.AllArgsConstructor
 import lombok.NoArgsConstructor
 import org.hibernate.annotations.ColumnDefault
+import org.hibernate.annotations.SQLRestriction
 import org.quintilis.common.dto.auth.UserDTO
 import org.quintilis.common.dto.auth.UserSummaryDTO
 import org.quintilis.common.entities.BaseEntity
+import org.quintilis.common.entities.UuidEntity
 import org.quintilis.common.entities.minecraft.Player
 
 @Entity
 @Table(name = "users", schema = "auth")
 @NoArgsConstructor
 @AllArgsConstructor
-open class User : BaseEntity<UserDTO> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false)
-    open var id: UUID? = null
-
+open class User : UuidEntity<UserDTO>() {
     @NotNull
     @Column(name = "username", nullable = false, length = Integer.MAX_VALUE)
     open var username: String? = null
@@ -60,11 +57,6 @@ open class User : BaseEntity<UserDTO> {
     @ColumnDefault("false")
     @Column(name = "is_verified", nullable = false)
     open var isVerified: Boolean = false
-
-    @NotNull
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_at", nullable = false)
-    open var createdAt: Instant? = Instant.now()
 
     @OneToOne(fetch = FetchType.LAZY) @JoinColumn(name = "mine_id") open var mine: Player? = null
 

@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface LoginLogRepository : JpaRepository<LoginLog, UUID>
+interface LoginLogRepository: JpaRepository<LoginLog, Int>

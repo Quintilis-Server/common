@@ -16,15 +16,11 @@ import java.time.Instant
 import org.hibernate.annotations.ColumnDefault
 import org.quintilis.common.dto.auth.RoleDTO
 import org.quintilis.common.entities.BaseEntity
+import org.quintilis.common.entities.IntEntity
 
 @Entity
 @Table(name = "roles", schema = "auth")
-open class Role : BaseEntity<RoleDTO> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    open var id: Int? = null
-
+open class Role : IntEntity<RoleDTO>() {
     @Size(max = 30)
     @NotNull
     @Column(name = "name", nullable = false, length = 30)
@@ -46,11 +42,6 @@ open class Role : BaseEntity<RoleDTO> {
     @Column(name = "priority", nullable = false)
     open var priority: Int? = null
 
-    @NotNull
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_at", nullable = false)
-    open var createdAt: Instant = Instant.now()
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "role_permissions",
@@ -68,8 +59,8 @@ open class Role : BaseEntity<RoleDTO> {
                 this.color!!,
                 this.icon ?: "",
                 this.priority!!,
-                this.createdAt!!,
-                this.permissions.mapNotNull { it.name }
+                this.createdAt,
+                this.permissions.map { it.toDTO() }.toMutableSet()
         )
     }
 }
