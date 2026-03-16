@@ -43,6 +43,7 @@ class EndpointMapperConfig(
 
                 for(requestMethod in methods){
                     val httpMethod = requestMethod.name
+                    println("Mapping $pattern, Metodo: $httpMethod")
 
                     // Registra na nossa lista de rotas "vivas"
                     activeEndpointsInCode.add("$httpMethod|$pattern")
