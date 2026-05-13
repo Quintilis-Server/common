@@ -1,8 +1,7 @@
-package org.quintilis.common.repositories
+package org.quintilis.common.repositories.auth
 
-import org.quintilis.common.dto.auth.PermissionDTO
 import org.quintilis.common.entities.auth.Permission
-import org.springframework.data.jpa.repository.JpaRepository
+import org.quintilis.common.repositories.BaseRepository
 
 interface PermissionRepository : BaseRepository<Permission, Int> {
     fun findByName(name: String): Permission?

@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -22,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam
 import java.util.UUID
 
 abstract class BaseController<E, ID : Any, DTO, NewDTO : Any>(
-    private val service: BaseService<E, ID, DTO, NewDTO>
-) where E : BaseEntity<DTO>, DTO : BaseDTO<E>, DTO : Any {
+    protected open val service: BaseService<E, ID, DTO, NewDTO>
+) where E : BaseEntity<DTO>, DTO : BaseDTO<E, ID> {
     protected open val allowCreate: Boolean = true
     protected open val allowUpdate: Boolean = true
     protected open val allowDelete: Boolean = true
@@ -53,15 +54,17 @@ abstract class BaseController<E, ID : Any, DTO, NewDTO : Any>(
     }
 
     @GetMapping("/all")
-    fun findAll(
+    @Transactional(readOnly = true)
+    open fun findAll(
         @RequestParam(required = false) search: String?,
         @PageableDefault(page = 0, size = 10) pageable: Pageable
     ): ApiResponse<Page<DTO>> {
-        val pageResult = service.findAll(search, pageable)
+        val pageResult = service.findAll(search, pageable, false)
         return ApiResponse.success(pageResult)
     }
 
     @GetMapping("/{id}")
+    @Transactional(readOnly = true)
     open fun findById(
         @PathVariable id: ID,
     ): ApiResponse<DTO> {
@@ -69,7 +72,8 @@ abstract class BaseController<E, ID : Any, DTO, NewDTO : Any>(
     }
 
     @GetMapping("/all/with-inactive")
-    fun findAllWithInactive(
+    @Transactional(readOnly = true)
+    open fun findAllWithInactive(
         @RequestParam(required = false) search: String?,
         @PageableDefault(page = 0, size = 10) pageable: Pageable
     ): ApiResponse<Page<DTO>> {
@@ -78,7 +82,8 @@ abstract class BaseController<E, ID : Any, DTO, NewDTO : Any>(
     }
 
     @GetMapping("/{id}/with-inactive")
-    fun findByIdWithInative(@PathVariable id: ID): ApiResponse<DTO> {
+    @Transactional(readOnly = true)
+    open fun findByIdWithInative(@PathVariable id: ID): ApiResponse<DTO> {
         return ApiResponse.success(service.findById(id, includeInactive = true).toDTO())
     }
 

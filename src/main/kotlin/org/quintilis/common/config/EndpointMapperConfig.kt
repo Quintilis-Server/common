@@ -1,8 +1,8 @@
 package org.quintilis.common.config
 
 import org.quintilis.common.entities.auth.EndpointRule
-import org.quintilis.common.repositories.EndpointRuleRepository
-import org.quintilis.common.repositories.PermissionRepository
+import org.quintilis.common.repositories.auth.EndpointRuleRepository
+import org.quintilis.common.repositories.auth.PermissionRepository
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.ApplicationArguments

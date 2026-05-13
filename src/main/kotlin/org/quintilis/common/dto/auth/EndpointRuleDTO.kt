@@ -5,13 +5,13 @@ import org.quintilis.common.entities.auth.EndpointRule
 import java.util.UUID
 
 data class EndpointRuleDTO(
-    val id: UUID,
+//    override var id: UUID,
     val httpMethod: String,
     val urlPattern: String,
     val serviceName: String,
     val permissions: Set<PermissionDTO>,
     val description: String?
-): BaseDTO<EndpointRule> {
+): BaseDTO<EndpointRule, UUID>() {
     override fun toEntity(): EndpointRule {
         return EndpointRule().apply {
             id = this@EndpointRuleDTO.id

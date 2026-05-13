@@ -53,14 +53,16 @@ open class Role : IntEntity<RoleDTO>() {
 
     override fun toDTO(): RoleDTO {
         return RoleDTO(
-                this.id!!,
-                this.name!!,
-                this.displayName!!,
-                this.color!!,
-                this.icon ?: "",
-                this.priority!!,
-                this.createdAt,
-                this.permissions.map { it.toDTO() }.toMutableSet()
-        )
+            this.name!!,
+            this.displayName!!,
+            this.color!!,
+            this.icon ?: "",
+            this.priority!!,
+            this.permissions.map { it.toDTO() }.toMutableSet()
+        ).apply {
+            // Preenchemos os campos herdados da BaseDTO
+            this.id = id
+            this.createdAt = createdAt
+        }
     }
 }

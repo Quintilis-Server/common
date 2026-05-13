@@ -5,10 +5,10 @@ import org.quintilis.common.dto.BaseDTO
 import org.quintilis.common.entities.auth.Permission
 
 data class PermissionDTO(
-    val id: Int,
+//    val id: Int,
     val name: String,
     val description: String,
-): BaseDTO<Permission> {
+): BaseDTO<Permission, Int>() {
     override fun toEntity(): Permission {
         return Permission().apply {
             id = this@PermissionDTO.id
@@ -21,7 +21,7 @@ data class PermissionDTO(
         @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
         fun fromString(id: String): PermissionDTO {
             // O Jackson vai pegar o "9", converter pra Int, e criar um DTO!
-            return PermissionDTO(id = id.toInt(), "", "")
+            return PermissionDTO("", "").apply { this.id = id.toInt() }
         }
     }
 }

@@ -14,7 +14,7 @@ import kotlin.reflect.KProperty1
 
 abstract class BaseService<E, ID : Any, DTO, NewDTO: Any>(
     private val repository: BaseRepository<E, ID>
-) where E : BaseEntity<DTO>, DTO : BaseDTO<E>, DTO : Any{
+) where E : BaseEntity<DTO>, DTO : BaseDTO<E, ID>{
 
     protected abstract fun newDTOToEntity(newDTO: NewDTO): E
 
@@ -73,7 +73,8 @@ abstract class BaseService<E, ID : Any, DTO, NewDTO: Any>(
         } else {
             // SOFT DELETE: Apenas marca como inativo e salva
             entity.isActive = false
-            repository.save(entity)
+            val updatedEntity = repository.saveAndFlush(entity)
+            return updatedEntity.toDTO()
         }
 
         return entity.toDTO()

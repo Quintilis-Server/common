@@ -49,6 +49,15 @@ class EndpointRule: BaseEntity<EndpointRuleDTO>() {
     var description: String? = null
 
     override fun toDTO(): EndpointRuleDTO {
-        return EndpointRuleDTO(id!!, httpMethod!!, urlPattern!!, serviceName!!, permissions.map { it.toDTO() }.toSet(), description)
+        return EndpointRuleDTO(
+            httpMethod!!,
+            urlPattern!!,
+            serviceName!!,
+            permissions.map { it.toDTO() }.toSet(),
+            description
+        ).apply {
+            this.id = id
+            this.createdAt = createdAt
+        }
     }
 }

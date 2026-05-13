@@ -23,6 +23,13 @@ open class Permission : IntEntity<PermissionDTO>() {
     @Column(name = "description", length = Integer.MAX_VALUE) open var description: String? = null
 
     override fun toDTO(): PermissionDTO {
-        return PermissionDTO(this.id!!, this.name!!, this.description ?: "")
+        return PermissionDTO(
+            this.name!!,
+            this.description ?: ""
+        ).apply {
+            // Preenchemos os campos herdados da BaseDTO
+            this.id = id
+            this.createdAt = createdAt
+        }
     }
 }

@@ -5,15 +5,15 @@ import org.quintilis.common.dto.BaseDTO
 import org.quintilis.common.entities.auth.Role
 
 data class RoleDTO(
-        val id: Int,
-        val name: String = "",
-        val displayName: String = "",
-        val color: String = "",
-        val icon: String? = null,
-        val priority: Int = 0,
-        val createdAt: Instant? = null,
-        val permissions: Set<PermissionDTO> = emptySet()
-) : BaseDTO<Role> {
+//        val id: Int,
+    val name: String = "",
+    val displayName: String = "",
+    val color: String = "",
+    val icon: String? = null,
+    val priority: Int = 0,
+//        val createdAt: Instant? = null,
+    val permissions: Set<PermissionDTO> = emptySet()
+) : BaseDTO<Role, Int>() {
     override fun toEntity(): Role {
         return Role().apply {
             id = this@RoleDTO.id

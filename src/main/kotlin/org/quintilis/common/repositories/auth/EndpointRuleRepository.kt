@@ -1,7 +1,7 @@
-package org.quintilis.common.repositories
+package org.quintilis.common.repositories.auth
 
 import org.quintilis.common.entities.auth.EndpointRule
-import org.springframework.data.jpa.repository.JpaRepository
+import org.quintilis.common.repositories.BaseRepository
 import org.springframework.data.jpa.repository.Query
 import java.util.UUID
 

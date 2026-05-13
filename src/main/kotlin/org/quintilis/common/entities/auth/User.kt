@@ -87,23 +87,25 @@ open class User : UuidEntity<UserDTO>() {
 
     override fun toDTO(): UserDTO {
         return UserDTO(
-                id = this.id,
-                username = this.username ?: "",
-                email = this.email ?: "",
-                roles = this.roles.map { it.toDTO() },
-                avatarPath = this.avatarPath,
-                isVerified = this.isVerified,
-                createdAt = this.createdAt
-        )
+            username = this.username ?: "",
+            email = this.email ?: "",
+            roles = this.roles.map { it.toDTO() },
+            avatarPath = this.avatarPath,
+            isVerified = this.isVerified,
+        ).apply {
+            // Preenchemos os campos herdados da BaseDTO
+            this.id = id
+            this.createdAt = createdAt
+        }
     }
 
     fun toSummaryDTO(): UserSummaryDTO {
         return UserSummaryDTO(
-                id = this.id,
-                username = this.username!!,
-                roles = this.roles.mapNotNull { it.name },
-                avatarPath = this.avatarPath,
-                isVerified = this.isVerified
+            id = this.id,
+            username = this.username!!,
+            roles = this.roles.mapNotNull { it.name },
+            avatarPath = this.avatarPath,
+            isVerified = this.isVerified
         )
     }
 }

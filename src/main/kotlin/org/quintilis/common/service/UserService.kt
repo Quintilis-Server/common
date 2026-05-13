@@ -2,7 +2,7 @@ package org.quintilis.common.service
 
 import org.quintilis.common.dto.auth.UserDTO
 import org.quintilis.common.entities.auth.User
-import org.quintilis.common.repositories.UserRepository
+import org.quintilis.common.repositories.auth.UserRepository
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service

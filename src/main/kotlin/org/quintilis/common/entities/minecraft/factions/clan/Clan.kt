@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
@@ -35,7 +36,8 @@ open class Clan {
     open var tag: String? = null
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    // MUDANÇA AQUI: De @OneToOne para @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "leader_uuid", nullable = false)
     open var leaderUuid: Player? = null

@@ -6,14 +6,14 @@ import org.quintilis.common.dto.BaseDTO
 import org.quintilis.common.entities.auth.User
 
 data class UserDTO(
-        val id: UUID? = null,
+//        val id: UUID? = null,
         val username: String,
         val email: String, // Cuidado: Só retorne isso se for o próprio usuário ou admin
         val roles: List<RoleDTO> = emptyList(),
         val avatarPath: String? = null,
         val isVerified: Boolean = false,
-        val createdAt: Instant? = null
-) : BaseDTO<User> {
+//        val createdAt: Instant? = null
+) : BaseDTO<User, UUID>() {
 
     override fun toEntity(): User {
         return User().apply {

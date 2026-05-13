@@ -3,7 +3,6 @@ package org.quintilis.common.resolvers
 import java.util.UUID
 import org.quintilis.common.entities.auth.User
 import org.quintilis.common.exception.UnauthorizedException
-import org.quintilis.common.repositories.UserRepository
 import org.quintilis.common.service.UserService
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component

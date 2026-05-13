@@ -1,8 +1,7 @@
-
-package org.quintilis.common.repositories
+package org.quintilis.common.repositories.auth
 
 import org.quintilis.common.entities.auth.Role
-import org.springframework.data.jpa.repository.JpaRepository
+import org.quintilis.common.repositories.BaseRepository
 
 interface RoleRepository : BaseRepository<Role, Int> {
     fun findByName(name: String): Role?

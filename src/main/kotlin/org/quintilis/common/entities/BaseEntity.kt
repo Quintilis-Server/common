@@ -9,7 +9,7 @@ import java.time.Instant
 @MappedSuperclass
 abstract class BaseEntity< D> : Serializable {
     @ColumnDefault("TRUE")
-    @Column(name = "is_active", nullable = false, updatable = false)
+    @Column(name = "is_active", nullable = false)
     var isActive: Boolean = true
 
     @ColumnDefault("CURRENT_TIMESTAMP")

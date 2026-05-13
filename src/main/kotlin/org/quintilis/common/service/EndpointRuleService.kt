@@ -1,16 +1,11 @@
 package org.quintilis.common.service
 
 import org.quintilis.common.dto.auth.EndpointRuleDTO
-import org.quintilis.common.dto.auth.RoleDTO
 import org.quintilis.common.entities.auth.EndpointRule
 import org.quintilis.common.entities.auth.Permission
-import org.quintilis.common.entities.auth.Role
-import org.quintilis.common.exception.NotFoundException
-import org.quintilis.common.repositories.EndpointRuleRepository
+import org.quintilis.common.repositories.auth.EndpointRuleRepository
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.util.AntPathMatcher
 import java.util.UUID

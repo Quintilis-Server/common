@@ -117,6 +117,17 @@
             <artifactId>spring-boot-starter-security-oauth2-authorization-server</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- No pom.xml do common ou do serviço de storage -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.21</version>
+        </dependency>
     </dependencies>
 
     <build>
