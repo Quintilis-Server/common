@@ -16,14 +16,15 @@ import org.hibernate.annotations.BatchSize
 import org.hibernate.annotations.SQLRestriction
 import org.quintilis.common.dto.auth.EndpointRuleDTO
 import org.quintilis.common.entities.BaseEntity
+import org.quintilis.common.entities.UuidEntity
 import java.util.UUID
 
 @Entity
 @Table(name = "endpoint_rules", schema = "auth")
-class EndpointRule: BaseEntity<EndpointRuleDTO>() {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    open var id: UUID? = null
+class EndpointRule: UuidEntity<EndpointRuleDTO>() {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.UUID)
+//    open var id: UUID? = null
 
     @Column(name = "service_name")
     var serviceName: String? = ""
@@ -56,8 +57,8 @@ class EndpointRule: BaseEntity<EndpointRuleDTO>() {
             permissions.map { it.toDTO() }.toSet(),
             description
         ).apply {
-            this.id = id
-            this.createdAt = createdAt
+            this.id = this@EndpointRule.id
+            this.createdAt = this@EndpointRule.createdAt!!
         }
     }
 }

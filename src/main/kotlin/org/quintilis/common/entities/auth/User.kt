@@ -94,8 +94,8 @@ open class User : UuidEntity<UserDTO>() {
             isVerified = this.isVerified,
         ).apply {
             // Preenchemos os campos herdados da BaseDTO
-            this.id = id
-            this.createdAt = createdAt
+            this.id = this@User.id
+            this.createdAt = this@User.createdAt!!
         }
     }
 

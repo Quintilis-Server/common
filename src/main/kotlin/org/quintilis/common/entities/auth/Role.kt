@@ -61,8 +61,8 @@ open class Role : IntEntity<RoleDTO>() {
             this.permissions.map { it.toDTO() }.toMutableSet()
         ).apply {
             // Preenchemos os campos herdados da BaseDTO
-            this.id = id
-            this.createdAt = createdAt
+            this.id = this@Role.id
+            this.createdAt = this@Role.createdAt!!
         }
     }
 }

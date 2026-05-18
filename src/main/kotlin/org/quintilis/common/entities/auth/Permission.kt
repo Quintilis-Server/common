@@ -28,8 +28,8 @@ open class Permission : IntEntity<PermissionDTO>() {
             this.description ?: ""
         ).apply {
             // Preenchemos os campos herdados da BaseDTO
-            this.id = id
-            this.createdAt = createdAt
+            this.id = this@Permission.id
+            this.createdAt = this@Permission.createdAt!!
         }
     }
 }
