@@ -16,6 +16,18 @@ data class PermissionDTO(
             description = this@PermissionDTO.description
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as PermissionDTO
+        return id == other.id
+    }
+
+    override fun hashCode(): Int {
+        return id?.hashCode() ?: super.hashCode()
+    }
+
     companion object {
         @JvmStatic
         @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
