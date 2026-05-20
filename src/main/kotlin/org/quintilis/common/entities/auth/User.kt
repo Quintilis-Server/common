@@ -104,6 +104,7 @@ open class User : UuidEntity<UserDTO>() {
             id = this.id,
             username = this.username!!,
             roles = this.roles.mapNotNull { it.name },
+            permissions = this.getAllPermissions().toList(),
             avatarPath = this.avatarPath,
             isVerified = this.isVerified
         )
