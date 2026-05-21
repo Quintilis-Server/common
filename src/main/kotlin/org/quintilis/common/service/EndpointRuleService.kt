@@ -1,5 +1,7 @@
 package org.quintilis.common.service
 
+import java.util.UUID
+import kotlin.reflect.KProperty1
 import org.quintilis.common.dto.auth.EndpointRuleDTO
 import org.quintilis.common.entities.auth.EndpointRule
 import org.quintilis.common.entities.auth.Permission
@@ -8,24 +10,22 @@ import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import org.springframework.util.AntPathMatcher
-import java.util.UUID
-import kotlin.reflect.KProperty1
-
 
 @Service
-class EndpointRuleService(
-    private val endpointRuleRepository: EndpointRuleRepository
-): BaseService<EndpointRule, UUID, EndpointRuleDTO, EndpointRuleDTO>(repository = endpointRuleRepository) {
+class EndpointRuleService(private val endpointRuleRepository: EndpointRuleRepository) :
+        BaseService<EndpointRule, UUID, EndpointRuleDTO, EndpointRuleDTO>(
+                repository = endpointRuleRepository
+        ) {
 
     private val ANT_PATH_MATCHER = AntPathMatcher()
 
     @Cacheable("endpoint_rules_cache", key = "#currentMethod + '_' + #currentUrl")
-    fun getRequiredPermissionFor(currentMethod: String, currentUrl: String): Set<Permission>{
-//    println("🔎 Buscando regras para: [$currentMethod] $currentUrl")
-//        println(currentMethod)
+    fun getRequiredPermissionFor(currentMethod: String, currentUrl: String): Set<Permission> {
+        //    println("🔎 Buscando regras para: [$currentMethod] $currentUrl")
+        //        println(currentMethod)
         val rules = this.getAll()
 
-        for(rule in rules){
+        for (rule in rules) {
             val pattern = rule.urlPattern ?: ""
             val method = rule.httpMethod ?: ""
 
@@ -34,8 +34,9 @@ class EndpointRuleService(
             // 🔥 Descomente a linha abaixo se quiser ver TUDO que ele está comparando
             // println("  -> Comparando com: [$method] $pattern | Match URL? $isMatch")
 
-            if(isMatch && method == currentMethod) {
-//                println("✅ MATCH ENCONTRADO! Permissões exigidas: ${rule.permissions.map { it.name }}")
+            if (isMatch && method == currentMethod) {
+                //                println("✅ MATCH ENCONTRADO! Permissões exigidas:
+                // ${rule.permissions.map { it.name }}")
                 return rule.permissions
             }
         }
@@ -44,7 +45,7 @@ class EndpointRuleService(
     }
 
     @Cacheable("endpoint_rules")
-    fun getAll(): List<EndpointRule>{
+    fun getAll(): List<EndpointRule> {
         return endpointRuleRepository.findAllLeftJoin()
     }
 
@@ -67,18 +68,12 @@ class EndpointRuleService(
     }
 
     override fun getSearchFields(): List<KProperty1<EndpointRule, *>> {
-        return listOf(
-            EndpointRule::httpMethod,
-            EndpointRule::urlPattern
-        )
+        return listOf(EndpointRule::httpMethod, EndpointRule::urlPattern)
     }
 
-    override fun updateEntityFromDTO(
-        dto: EndpointRuleDTO,
-        entity: EndpointRule
-    ) {
-//        entity.httpMethod = dto.httpMethod
-//        entity.urlPattern = dto.urlPattern
+    override fun updateEntityFromDTO(dto: EndpointRuleDTO, entity: EndpointRule) {
+        //        entity.httpMethod = dto.httpMethod
+        //        entity.urlPattern = dto.urlPattern
         entity.permissions = dto.permissions.map { it.toEntity() }.toMutableSet()
         entity.description = dto.description
     }
